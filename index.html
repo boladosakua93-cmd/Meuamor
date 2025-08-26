@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Para minha mãe, Kátia Breda — por André Pita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#ffdde1; /* rosa clarinho */
+      --bg2:#ee9ca7; /* rosé */
+      --ink:#3b1e2e; /* vinho */
+      --rose:#ff577f;
+      --gold:#ffb703;
+      --creme:#fff8f7;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; color:var(--ink);
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, #fff5f7 0, #ffe6ec 30%, #ffd9e3 55%, #ffc7d6 75%, #fcb7cc 100%),
+                  linear-gradient(120deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    /* Corações flutuantes de fundo */
+    .heart{position:fixed; width:14px; height:14px; background:var(--rose); transform:rotate(45deg); opacity:.75; z-index:0}
+    .heart::before,.heart::after{content:""; position:absolute; width:14px; height:14px; background:var(--rose); border-radius:50%}
+    .heart::before{left:-7px}
+    .heart::after{top:-7px}
+    @keyframes floatUp{from{transform:translateY(0) rotate(45deg)} to{transform:translateY(-110vh) rotate(45deg)}}header{
+  position:relative; z-index:2; text-align:center; padding:48px 16px 16px;
+}
+.brand{
+  font-family:'Great Vibes', cursive; font-size:64px; line-height:1; color:#a31645; text-shadow:0 6px 18px rgba(163,22,69,.25);
+}
+.byline{margin-top:8px; font-weight:600; letter-spacing:.5px}
+
+.hero{position:relative; z-index:2; max-width:1000px; margin:24px auto; padding:24px;}
+.card{
+  background:linear-gradient(180deg, #fff, #fff8fb);
+  border:1px solid rgba(255,87,127,.15);
+  border-radius:28px; box-shadow:0 20px 50px rgba(163,22,69,.15);
+  padding:28px; backdrop-filter:saturate(1.1) blur(4px);
+}
+.type{font-size:22px; min-height:56px}
+.type b{color:#a31645}
+
+.controls{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:16px}
+.btn{cursor:pointer; border:none; padding:14px 20px; border-radius:18px; font-weight:700;
+  background:linear-gradient(135deg,#ff6b9e,#ff8fb8); color:#fff; box-shadow:0 12px 24px rgba(255,105,150,.35);
+  transition:transform .08s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px); box-shadow:0 18px 32px rgba(255,105,150,.45)}
+
+/* Balões de fala */
+.balloon{position:fixed; z-index:3; max-width:60vw; background:#fff; color:var(--ink);
+  border:2px solid rgba(255,87,127,.35); border-radius:16px; padding:12px 14px; font-weight:600; 
+  box-shadow:0 10px 24px rgba(163,22,69,.2); animation: rise 9s ease-in forwards}
+.balloon::after{content:""; position:absolute; bottom:-10px; left:18px; width:18px; height:18px; background:#fff;
+  border-left:2px solid rgba(255,87,127,.35); border-bottom:2px solid rgba(255,87,127,.35); transform:rotate(45deg)}
+@keyframes rise{0%{opacity:0; transform:translateY(40px) scale(.95)}10%{opacity:1} 100%{opacity:0; transform:translateY(-120vh) scale(1)}}
+
+/* Galeria */
+.gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:16px; margin-top:24px}
+.photo{grid-column:span 4; position:relative; overflow:hidden; border-radius:26px; aspect-ratio:3/4; box-shadow:0 18px 40px rgba(163,22,69,.2)}
+.photo img{width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05)}
+.photo::after{content:""; position:absolute; inset:0; box-shadow:inset 0 0 0 8px rgba(255,255,255,.85); border-radius:26px; pointer-events:none}
+@media (max-width:900px){.photo{grid-column:span 6}} 
+@media (max-width:600px){.photo{grid-column:span 12}}
+
+/* Moldura em forma de coração */
+.heart-mask{ -webkit-mask: radial-gradient(circle at 70% 30%, transparent 0 34px, #0000 0),
+                             radial-gradient(circle at 30% 30%, transparent 0 34px, #0000 0),
+                             conic-gradient(from 45deg at 50% 60%, #000 0 90deg, #0000 0 360deg); }
+
+/* Modal de poemas */
+.modal-backdrop{position:fixed; inset:0; background:rgba(10,0,10,.55); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:50}
+.modal{width:min(760px,92vw); background:#fff; border-radius:28px; box-shadow:0 30px 80px rgba(0,0,0,.35); overflow:hidden; border:1px solid rgba(255,87,127,.3)}
+.modal header{padding:18px 22px; text-align:left}
+.modal h3{margin:0; font-size:22px; color:#a31645}
+.modal .content{padding:0 22px 22px}
+.poem{padding:18px; margin:14px 0; border-radius:16px; background:linear-gradient(180deg,#fff8fb,#fff); border:1px dashed rgba(255,87,127,.45)}
+.modal .actions{display:flex; gap:10px; justify-content:flex-end; padding:0 22px 22px}
+.ghost{background:#fff; border:2px solid #ff6b9e; color:#a31645}
+
+.footer{padding:42px 16px 80px; text-align:center; opacity:.9}
+.sig{font-family:'Great Vibes', cursive; font-size:40px; color:#a31645}
+
+/* Mini confete */
+.confetti{position:fixed; top:0; left:0; width:6px; height:12px; background:#fff; opacity:.9; transform:rotate(10deg); z-index:40; animation: fall 2.6s linear forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(360deg); opacity:0}}
+
+  </style>
+</head>
+<body>
+  <!-- corações aleatórios do fundo (inseridos via JS) -->  <header>
+    <div class="brand">Para minha mãe, Kátia Breda</div>
+    <div class="byline">Com todo meu amor — <b>André Pita</b></div>
+  </header>  <main class="hero">
+    <section class="card">
+      <div class="type" id="typewrite" aria-live="polite"></div>
+      <div class="controls">
+        <button class="btn" id="btnBaloes">Soltar balões de amor</button>
+        <button class="btn" id="btnPoemas">Ler poemas para a mamãe</button>
+        <button class="btn ghost" id="btnConfete">Chuva de corações</button>
+      </div><div class="gallery" aria-label="Galeria de fotos da família">
+    <figure class="photo" title="Nós dois">
+      <img src="https://i.imgur.com/vAtV78o.jpeg" alt="Foto especial da família"/>
+    </figure>
+    <figure class="photo" title="Sorriso que ilumina">
+      <img class="heart-mask" src="https://i.imgur.com/3RHI98i.jpeg" alt="Retrato com moldura em coração"/>
+    </figure>
+    <figure class="photo" title="Abraço que cura">
+      <img src="https://i.imgur.com/LrOCHaX.jpeg" alt="Momento com a mãe, Kátia"/>
+    </figure>
+  </div>
+</section>
+
+<section class="card" style="margin-top:22px">
+  <h2 style="margin:0 0 6px 0">Carta aberta pra você, mãe</h2>
+  <p>
+    Mãe, você é <b>guerreira</b> desde o primeiro capítulo. Quando o mundo pesou, você virou 
+    ponte. Quando eu duvidei, você foi voz mansa dizendo: <i>“vai dar certo, meu filho”</i>. 
+    Hoje eu escrevo pra te lembrar: tudo que sou foi aceso pelo fogo do seu amor.
+  </p>
+  <p>
+    Que esta página seja um abraço que não termina, um buquê de frases, um altar de memórias.
+    Se em algum momento a vida tentou te cansar, que cada clique aqui te devolva fôlego, fé e sorriso.
+  </p>
+</section>
+
+<section class="card" style="margin-top:22px">
+  <h2 style="margin:0 0 6px 0">Promessas do André pra Kátia</h2>
+  <ul>
+    <li>Ser teu porto quando as ondas subirem.</li>
+    <li>Celebrar tuas vitórias como quem solta fogos no céu.</li>
+    <li>Te lembrar todos os dias: você é <b>extraordinária</b>.</li>
+    <li>Te cobrir de orgulho com minhas escolhas e meu coração.</li>
+  </ul>
+</section>
+
+<section class="footer">
+  <div class="sig">Te amo infinitamente, mãe.</div>
+  <div>— André</div>
+</section>
+
+  </main>  <!-- Modal de poemas -->  <div class="modal-backdrop" id="backdrop" role="dialog" aria-modal="true" aria-labelledby="poemasTitle">
+    <div class="modal" role="document">
+      <header>
+        <h3 id="poemasTitle">Poemas para Kátia</h3>
+      </header>
+      <div class="content" id="poemasContainer">
+        <!-- poemas são injetados aqui -->
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="prevPoem">◀︎ Anterior</button>
+        <button class="btn" id="nextPoem">Próximo ▶︎</button>
+        <button class="btn" id="closeModal">Fechar</button>
+      </div>
+    </div>
+  </div>  <script>
+    // ===================== Texto em efeito digitação =====================
+    const linhas = [
+      'Mãe, <b>Kátia Breda</b>, minha casa fica onde você sorri.',
+      'Sou teu menino, sempre. — <b>André Pita</b>.',
+      'Obrigado por ser coragem, colo e caminho.'
+    ];
+    const typeEl = document.getElementById('typewrite');
+    let idx = 0, char = 0, apagando = false;
+    function digitar(){
+      const frase = linhas[idx];
+      if(!apagando){
+        char++;
+        typeEl.innerHTML = frase.slice(0,char) + '<span style="opacity:.45">|</span>';
+        if(char >= frase.length){apagando = true; setTimeout(digitar, 1800); return}
+      } else {
+        char--; typeEl.innerHTML = frase.slice(0,char) + '<span style="opacity:.25">|</span>';
+        if(char <= 0){apagando = false; idx = (idx+1)%linhas.length}
+      }
+      setTimeout(digitar, apagando ? 28 : 38);
+    }
+    digitar();
+
+    // ===================== Corações flutuantes de fundo =====================
+    function spawnHeart(){
+      const h = document.createElement('div'); h.className='heart';
+      const size = Math.random()*12 + 8; h.style.width=h.style.height=size+'px';
+      h.style.left = (Math.random()*100)+'vw';
+      h.style.bottom = '-20px';
+      h.style.background = `hsl(${Math.random()*20+340} 90% 60%)`;
+      h.style.animation = `floatUp ${8+Math.random()*6}s linear forwards`;
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 15000);
+    }
+    setInterval(spawnHeart, 450);
+
+    // ===================== Balões de amor =====================
+    const frases = [
+      'Você é meu milagre de todos os dias.',
+      'Seu abraço cura o que o mundo machuca.',
+      'Mãe: primeira palavra, amor que não tem última.',
+      'Quando eu fraquejo, lembro que sou filho da sua força.',
+      'Seu sorriso é meu norte magnético.',
+      'Guerreira, delicada, infinita: você.'
+    ];
+
+    function soltarBalao(texto){
+      const b = document.createElement('div'); b.className='balloon'; b.textContent = texto;
+      const x = Math.random()*70 + 10; const y = 100; // parte de baixo
+      b.style.left = x+'vw'; b.style.bottom = '-20px';
+      document.body.appendChild(b);
+      setTimeout(()=>b.remove(), 9000);
+    }
+
+    document.getElementById('btnBaloes').addEventListener('click', ()=>{
+      for(let i=0;i<6;i++) setTimeout(()=> soltarBalao(frases[(Math.random()*frases.length)|0]), i*600);
+    });
+
+
+    // ===================== Modal de poemas =====================
+    const poemas = [
+      {
+        titulo: 'Mãe é verbo que aquece',
+        texto: `No silêncio que o mundo não entende,\n\n
+                você reza meu nome devagar.\n\n
+                Eu cresço no abrigo do teu peito,\n\n
+                e o medo aprende a me deixar.`
+      },
+      {
+        titulo: 'Guerreira com mãos de flor',
+        texto: `Você sangrou por sonhos que eram meus,\n\n
+                transformou contas em pão e carinho.\n\n
+                Se hoje caminho firme, mãe,\n\n
+                é porque calço o teu carinho.`
+      },
+      {
+        titulo: 'Carta que cabe num beijo',
+        texto: `Se eu pudesse embrulhar o céu,\n\n
+                escreveria "Obrigado" em cada estrela.\n\n
+                Como não posso, te dou meu mundo:\n\n
+                este filho que te ama e não te deixa.`
+      },
+      {
+        titulo: 'Promessa de filho',
+        texto: `Eu vou ser teu descanso nas tardes cansadas,\n\n
+                teu riso nas manhãs ansiosas,\n\n
+                teu orgulho nas noites em festa,\n\n
+                e tua mão nas travessias perigosas.`
+      },
+      {
+        titulo: 'Teu nome, Kátia',
+        texto: `Cabe leve na boca e gigante no peito.\n\n
+                Quando digo, o dia clareia.\n\n
+                Quando chamo, o medo se rende.\n\n
+                Quando penso, eu volto pra casa.`
+      }
+    ];
+
+    const backdrop = document.getElementById('backdrop');
+    const container = document.getElementById('poemasContainer');
+    let pIndex = 0;
+
+    function abrirPoemas(){
+      renderPoema();
+      backdrop.style.display='flex';
+    }
+    function fecharPoemas(){backdrop.style.display='none'}
+    function renderPoema(){
+      const p = poemas[pIndex];
+      container.innerHTML = `
+        <article class="poem" aria-label="Poema">
+          <h4 style="margin:0 0 8px 0; color:#a31645">${p.titulo}</h4>
+          <pre style="white-space:pre-wrap; font-family:inherit; line-height:1.6; font-size:18px; margin:0">${p.texto}</pre></article>
+  `;
+}
+
+document.getElementById('btnPoemas').addEventListener('click', abrirPoemas);
+document.getElementById('closeModal').addEventListener('click', fecharPoemas);
+document.getElementById('nextPoem').addEventListener('click', ()=>{pIndex=(pIndex+1)%poemas.length; renderPoema()});
+document.getElementById('prevPoem').addEventListener('click', ()=>{pIndex=(pIndex-1+poemas.length)%poemas.length; renderPoema()});
+backdrop.addEventListener('click', (e)=>{ if(e.target===backdrop) fecharPoemas() });
+
+// Abre automaticamente após alguns segundos com primeiro poema
+setTimeout(abrirPoemas, 3800);
+
+// ===================== Chuva de corações / confete =====================
+function confete(){
+  for(let i=0;i<140;i++){
+    setTimeout(()=>{
+      const c = document.createElement('div'); c.className='confetti';
+      c.style.left = Math.random()*100+'vw';
+      c.style.background = `hsl(${Math.random()*360} 90% 60%)`;
+      c.style.animationDuration = (1.6 + Math.random()*1.4) + 's';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 2600);
+    }, i*8);
+  }
+}
+document.getElementById('btnConfete').addEventListener('click', confete);
+
+// Solta balõezinhos quando clica pelo site
+document.body.addEventListener('click', (e)=>{
+  if(e.target.closest('.btn') || e.target.closest('.modal')) return;
+  soltarBalao(frases[(Math.random()*frases.length)|0]);
+});
+
+  </script>
+</body>
+</html>

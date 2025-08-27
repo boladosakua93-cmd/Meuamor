@@ -304,7 +304,17 @@ document.body.addEventListener('click', (e)=>{
   if(e.target.closest('.btn') || e.target.closest('.modal')) return;
   soltarBalao(frases[(Math.random()*frases.length)|0]);
 });
+<audio id="bg-music" autoplay loop hidden>
+  <source src="sua-musica.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+  window.addEventListener("load", () => {
+    const audio = document.getElementById("bg-music");
+    audio.muted = false; // tira o mudo
+    audio.play().catch(err => console.log("Autoplay bloqueado:", err));
+  });
+</script>
   </script>
 </body>
 </html>
